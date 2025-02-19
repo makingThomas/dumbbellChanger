@@ -9,7 +9,6 @@
 # import libraries
 import json
 import os
-import msvcrt
 
 
 ### Constants ###
@@ -49,6 +48,12 @@ def get_user_input(message : str):
     user_input = input(message)
     return user_input
 
+def eval_display_error(display_error):
+    if display_error == False:
+        return 'Select which routine to start. Type "exit" to close the program\nUser selection: '
+    else:
+        return 'Select which routine to start. Type "exit" to close the program\nInvalid input!\nUser selection: '
+
 def execute_routine(routine_name : str, routine : dict):
     exercise_count = 0
     exercise_names, weights = dict_to_list(routine)
@@ -68,10 +73,7 @@ def execute_routine(routine_name : str, routine : dict):
 while main_run:
     clear_screen()
     print_menu(main_menu_message, main_menu_options)
-    if display_error == False:
-        input_message = 'Select which routine to start. Type "exit" to close the program\nUser selection: '
-    else:
-        input_message = 'Select which routine to start. Type "exit" to close the program\nInvalid input!\nUser selection: '
+    input_message = eval_display_error(display_error)
     user_input = get_user_input(input_message).upper()
     match user_input:
         case "PUSH":
